@@ -33,7 +33,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Department Management Routes
     Route::apiResource('departments', DepartmentController::class);
-    Route::apiResource('budget-requests', BudgetRequestController::class);
+    
+    // Budget Request Routes (without resource to avoid route name conflicts)
+    Route::get('budget-requests', [BudgetRequestController::class, 'index']);
+    Route::post('budget-requests', [BudgetRequestController::class, 'store']);
+    Route::get('budget-requests/{budgetRequest}', [BudgetRequestController::class, 'show']);
+    Route::put('budget-requests/{budgetRequest}', [BudgetRequestController::class, 'update']);
+    Route::delete('budget-requests/{budgetRequest}', [BudgetRequestController::class, 'destroy']);
     
     // Department level approval
     Route::post('budget-requests/{budgetRequest}/approve-department', [BudgetRequestController::class, 'approveDepartment']);
