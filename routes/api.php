@@ -28,66 +28,86 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    // User Management Routes
-    Route::apiResource('users', UserController::class);
+    // User Management Routes (API endpoints only, no named routes to avoid conflicts)
+    Route::get('api/users', [UserController::class, 'index']);
+    Route::post('api/users', [UserController::class, 'store']);
+    Route::get('api/users/{user}', [UserController::class, 'show']);
+    Route::put('api/users/{user}', [UserController::class, 'update']);
+    Route::delete('api/users/{user}', [UserController::class, 'destroy']);
 
-    // Department Management Routes
-    Route::apiResource('departments', DepartmentController::class);
+    // Department Management Routes (API endpoints only)
+    Route::get('api/departments', [DepartmentController::class, 'index']);
+    Route::post('api/departments', [DepartmentController::class, 'store']);
+    Route::get('api/departments/{department}', [DepartmentController::class, 'show']);
+    Route::put('api/departments/{department}', [DepartmentController::class, 'update']);
+    Route::delete('api/departments/{department}', [DepartmentController::class, 'destroy']);
     
-    // Budget Request Routes (without resource to avoid route name conflicts)
-    Route::get('budget-requests', [BudgetRequestController::class, 'index']);
-    Route::post('budget-requests', [BudgetRequestController::class, 'store']);
-    Route::get('budget-requests/{budgetRequest}', [BudgetRequestController::class, 'show']);
-    Route::put('budget-requests/{budgetRequest}', [BudgetRequestController::class, 'update']);
-    Route::delete('budget-requests/{budgetRequest}', [BudgetRequestController::class, 'destroy']);
+    // Budget Request Routes (API endpoints only)
+    Route::get('api/budget-requests', [BudgetRequestController::class, 'index']);
+    Route::post('api/budget-requests', [BudgetRequestController::class, 'store']);
+    Route::get('api/budget-requests/{budgetRequest}', [BudgetRequestController::class, 'show']);
+    Route::put('api/budget-requests/{budgetRequest}', [BudgetRequestController::class, 'update']);
+    Route::delete('api/budget-requests/{budgetRequest}', [BudgetRequestController::class, 'destroy']);
     
     // Department level approval
-    Route::post('budget-requests/{budgetRequest}/approve-department', [BudgetRequestController::class, 'approveDepartment']);
-    Route::post('budget-requests/{budgetRequest}/reject-department', [BudgetRequestController::class, 'rejectDepartment']);
+    Route::post('api/budget-requests/{budgetRequest}/approve-department', [BudgetRequestController::class, 'approveDepartment']);
+    Route::post('api/budget-requests/{budgetRequest}/reject-department', [BudgetRequestController::class, 'rejectDepartment']);
     
     // Admin level approval
-    Route::post('budget-requests/{budgetRequest}/approve-admin', [BudgetRequestController::class, 'approveAdmin']);
-    Route::post('budget-requests/{budgetRequest}/reject-admin', [BudgetRequestController::class, 'rejectAdmin']);
+    Route::post('api/budget-requests/{budgetRequest}/approve-admin', [BudgetRequestController::class, 'approveAdmin']);
+    Route::post('api/budget-requests/{budgetRequest}/reject-admin', [BudgetRequestController::class, 'rejectAdmin']);
 
-    // Budget Submission Routes
-    Route::apiResource('budget-submissions', BudgetSubmissionController::class);
+    // Budget Submission Routes (API endpoints only)
+    Route::get('api/budget-submissions', [BudgetSubmissionController::class, 'index']);
+    Route::post('api/budget-submissions', [BudgetSubmissionController::class, 'store']);
+    Route::get('api/budget-submissions/{budgetSubmission}', [BudgetSubmissionController::class, 'show']);
+    Route::put('api/budget-submissions/{budgetSubmission}', [BudgetSubmissionController::class, 'update']);
+    Route::delete('api/budget-submissions/{budgetSubmission}', [BudgetSubmissionController::class, 'destroy']);
     
     // Department level review
-    Route::post('budget-submissions/{budgetSubmission}/review-department', [BudgetSubmissionController::class, 'reviewDepartment']);
+    Route::post('api/budget-submissions/{budgetSubmission}/review-department', [BudgetSubmissionController::class, 'reviewDepartment']);
     
     // Admin level review
-    Route::post('budget-submissions/{budgetSubmission}/review-admin', [BudgetSubmissionController::class, 'reviewAdmin']);
+    Route::post('api/budget-submissions/{budgetSubmission}/review-admin', [BudgetSubmissionController::class, 'reviewAdmin']);
 
-    // Liquidation Report Routes
-    Route::apiResource('liquidation-reports', LiquidationReportController::class);
+    // Liquidation Report Routes (API endpoints only)
+    Route::get('api/liquidation-reports', [LiquidationReportController::class, 'index']);
+    Route::post('api/liquidation-reports', [LiquidationReportController::class, 'store']);
+    Route::get('api/liquidation-reports/{liquidationReport}', [LiquidationReportController::class, 'show']);
+    Route::put('api/liquidation-reports/{liquidationReport}', [LiquidationReportController::class, 'update']);
+    Route::delete('api/liquidation-reports/{liquidationReport}', [LiquidationReportController::class, 'destroy']);
     
     // Department level review
-    Route::post('liquidation-reports/{liquidationReport}/review-department', [LiquidationReportController::class, 'reviewDepartment']);
+    Route::post('api/liquidation-reports/{liquidationReport}/review-department', [LiquidationReportController::class, 'reviewDepartment']);
     
     // Admin level review
-    Route::post('liquidation-reports/{liquidationReport}/review-admin', [LiquidationReportController::class, 'reviewAdmin']);
+    Route::post('api/liquidation-reports/{liquidationReport}/review-admin', [LiquidationReportController::class, 'reviewAdmin']);
 
-    // Budget Allocation Routes
-    Route::apiResource('budget-allocations', BudgetAllocationController::class);
-    Route::get('budget-allocations/statistics', [BudgetAllocationController::class, 'statistics']);
+    // Budget Allocation Routes (API endpoints only)
+    Route::get('api/budget-allocations', [BudgetAllocationController::class, 'index']);
+    Route::post('api/budget-allocations', [BudgetAllocationController::class, 'store']);
+    Route::get('api/budget-allocations/{budgetAllocation}', [BudgetAllocationController::class, 'show']);
+    Route::put('api/budget-allocations/{budgetAllocation}', [BudgetAllocationController::class, 'update']);
+    Route::delete('api/budget-allocations/{budgetAllocation}', [BudgetAllocationController::class, 'destroy']);
+    Route::get('api/budget-allocations/statistics', [BudgetAllocationController::class, 'statistics']);
 
     // Approval Management Routes
-    Route::get('approvals/pending', [ApprovalController::class, 'getPendingApprovals']);
-    Route::get('approvals/statistics', [ApprovalController::class, 'getStatistics']);
+    Route::get('api/approvals/pending', [ApprovalController::class, 'getPendingApprovals']);
+    Route::get('api/approvals/statistics', [ApprovalController::class, 'getStatistics']);
 
     // Audit Log Routes
-    Route::get('audit-logs', [AuditLogController::class, 'index']);
-    Route::get('audit-logs/{modelType}/{modelId}', [AuditLogController::class, 'show']);
-    Route::get('audit-logs/summary', [AuditLogController::class, 'summary']);
+    Route::get('api/audit-logs', [AuditLogController::class, 'index']);
+    Route::get('api/audit-logs/{modelType}/{modelId}', [AuditLogController::class, 'show']);
+    Route::get('api/audit-logs/summary', [AuditLogController::class, 'summary']);
 
     // Analytics Routes
     Route::controller(\App\Http\Controllers\AnalyticsController::class)->group(function () {
-        Route::get('analytics/overview', 'getOverview');
-        Route::get('analytics/budget-by-department', 'getBudgetByDepartment');
-        Route::get('analytics/request-status', 'getRequestStatus');
-        Route::get('analytics/spending-trends', 'getSpendingTrends');
-        Route::get('analytics/budget-allocation-vs-spending', 'getBudgetAllocationVsSpending');
-        Route::get('analytics/department-spending-percentage', 'getDepartmentSpendingPercentage');
+        Route::get('api/analytics/overview', 'getOverview');
+        Route::get('api/analytics/budget-by-department', 'getBudgetByDepartment');
+        Route::get('api/analytics/request-status', 'getRequestStatus');
+        Route::get('api/analytics/spending-trends', 'getSpendingTrends');
+        Route::get('api/analytics/budget-allocation-vs-spending', 'getBudgetAllocationVsSpending');
+        Route::get('api/analytics/department-spending-percentage', 'getDepartmentSpendingPercentage');
         Route::get('analytics/forecast', 'getForecast');
         Route::get('analytics/top-departments', 'getTopDepartments');
         Route::get('analytics/approval-rate', 'getApprovalRate');
